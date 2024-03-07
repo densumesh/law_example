@@ -9,8 +9,8 @@ const bills = [
   await Bun.file(tax_relief_act_path).text(),
 ];
 
-const api_key = "tr-*****************";
-const dataset_id = "**************************";
+const api_key = "tr-981BN41HyQSbHyaqVRC7nnG7dnSkXwU0";
+const dataset_id = "4ac84e48-ffa4-41ad-9fc0-3e926d906c6d";
 
 // We can upload these bills to Trieve using the `upload` method
 // We can use two upload strategies: split_avg and chunking
@@ -71,9 +71,8 @@ await fetch("https://api.trieve.ai/api/chunk/search", {
       ],
     },
   }),
-})
-  .then((response) => response.json())
-  .then((data) => console.log(data));
+}).then((response) => response.json());
+//.then((data) => console.log(data));
 
 //Now lets get some recommendations
 await fetch("https://api.trieve.ai/api/chunk/recommend", {
@@ -84,10 +83,10 @@ await fetch("https://api.trieve.ai/api/chunk/recommend", {
     "TR-Dataset": dataset_id,
   },
   body: JSON.stringify({
-    // You can specifcy bills you want to see similar bills to using the ids in your system
+    // You can specifcy bills you want to see similar bills to using the ids in your system. You must provide at least one positive id
     positive_tracking_ids: ["0"],
     // You can also specify bills you want to see dissimilar bills to using the ids in your system
-    // negative_tracking_ids: ["1"],
+    //negative_tracking_ids: ["1"],
   }),
 })
   .then((response) => response.json())
@@ -203,7 +202,7 @@ await fetch("https://api.trieve.ai/api/chunk_group/group_oriented_search", {
   .then((response) => response.json())
   .then((data) => console.log(data));
 
-//Now lets get some reccomendations
+//Now lets get some recommendations for groups rather than chunks
 await fetch("https://api.trieve.ai/api/chunk_group/recommend", {
   method: "POST",
   headers: {
