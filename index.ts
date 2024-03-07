@@ -44,7 +44,7 @@ for (const bill in bills) {
 console.log(
   "waiting for ingestion microservice to fully ingest the bills.... You can track this in the events tab in the Trieve dashboard or use the api (https://api.trieve.ai/api/events)",
 );
-await sleep(5000);
+await sleep(3000);
 
 /// Now let's search with some filters
 await fetch("https://api.trieve.ai/api/chunk/search", {
@@ -71,8 +71,9 @@ await fetch("https://api.trieve.ai/api/chunk/search", {
       ],
     },
   }),
-}).then((response) => response.json());
-//.then((data) => console.log(data));
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data));
 
 //Now lets get some recommendations
 await fetch("https://api.trieve.ai/api/chunk/recommend", {
@@ -171,11 +172,13 @@ for (const bill in bills) {
         group_tracking_ids: [bill.toString()],
       }),
     }).then((response) => response.json());
-    //   .then((data) => console.log(data));
   });
 }
 
-await sleep(10000);
+console.log(
+  "waiting for ingestion microservice to fully ingest the bills.... You can track this in the events tab in the Trieve dashboard or use the api (https://api.trieve.ai/api/events)",
+);
+await sleep(3000);
 
 // Now let's search with some filters
 // group oriented search lets you search over groups so that the results are the groups that match the search rather than individual chunks
